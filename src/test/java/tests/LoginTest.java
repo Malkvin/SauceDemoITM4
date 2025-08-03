@@ -37,6 +37,9 @@ public class LoginTest extends BaseTest{
     public void checkLogin() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
+        productsPage.addToCart("Sauce Labs Backpack");
+        productsPage.addToCart("Sauce Labs Bike Light");
+        productsPage.addToCart("Sauce Labs Fleece Jacket");
         assertTrue(productsPage.isPageOpened());
     }
 }

@@ -38,3 +38,4 @@ public class ProductsTest extends BaseTest {
         assertEquals(productsPage.getFirstItemTitle(), "Sauce Labs Backpack");
     }
 }
+
