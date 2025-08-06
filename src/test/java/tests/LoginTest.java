@@ -1,5 +1,9 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import net.bytebuddy.build.Plugin;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -8,7 +12,9 @@ import static org.testng.Assert.*;
 
 public class LoginTest extends BaseTest{
 
-    @Test
+    @Test(description = "Проверка авторизации с логином {user} и с пустым поролем")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Невалидный вход")
     public void checkLoginWithoutPassword() {
         loginPage.open();
         loginPage.login("standard_user", "");
@@ -17,7 +23,9 @@ public class LoginTest extends BaseTest{
                 "Сообщение не соответствует");
     }
 
-    @Test
+    @Test(description = "Проверка авторизации с пустым логином и с поролем {password}")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Невалидный вход")
     public void checkLoginWithoutUsername() {
         loginPage.open();
         loginPage.login("", "secret_sauce");
@@ -26,7 +34,9 @@ public class LoginTest extends BaseTest{
                 "Сообщение не соответствует");
     }
 
-    @Test
+    @Test(description = "Проверка авторизации с логином {test} и с поролем {test}")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Невалидный вход")
     public void checkLoginWithNegativeValues() {
         loginPage.open();
         loginPage.login("test", "test");
@@ -35,7 +45,9 @@ public class LoginTest extends BaseTest{
                 "Сообщение не соответствует");
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(retryAnalyzer = Retry.class, description = "Проверка авторизации с логином {user} и с поролем {password}")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Валидный вход")
     public void checkLogin() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
