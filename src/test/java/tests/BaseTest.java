@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import pages.CartPage;
@@ -14,6 +15,9 @@ import pages.ProductsPage;
 
 import java.time.Duration;
 import java.util.HashMap;
+
+import static tests.AllureUtils.takeScreenshot;
+
 @Listeners(TestListener.class)
 public class BaseTest {
 
@@ -24,7 +28,7 @@ public class BaseTest {
     CartPage cartPage;
 
     @Parameters({"browser"})
-    @BeforeMethod
+    @BeforeMethod(description = "Настройка драйвера")
     public void setup(@Optional("chrome") String browser) {
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
@@ -48,8 +52,11 @@ public class BaseTest {
         cartPage = new CartPage(driver);
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void tearDown() {
+    @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
+    public void tearDown(ITestResult result) {
+        if(ITestResult.FAILURE == result.getStatus()){
+            takeScreenshot(driver);
+        }
         driver.quit();
     }
 }
