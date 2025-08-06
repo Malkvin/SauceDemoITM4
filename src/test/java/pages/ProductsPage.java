@@ -13,6 +13,7 @@ public class ProductsPage extends BasePage {
     private final By FILTER_PRICE_LOW_TO_HIGH = By.xpath("//select/option[3]");
     private final By FILTER_PRICE_HIGH_TO_LOW = By.xpath("//select/option[4]");
     private final By CART = By.className("shopping_cart_link");
+    private final String ADD_TO_CART_PATTERN = "//div[text()='%s']/ancestor::div[@data-test='inventory-item']//button[text()='Add to cart']";
 
     public ProductsPage(WebDriver driver) {
         super(driver);
@@ -52,5 +53,9 @@ public class ProductsPage extends BasePage {
 
     public void goToCart() {
         driver.findElement(CART).click();
+    }
+
+    public void addToCart (String product) {
+        driver.findElement(By.xpath(String.format(ADD_TO_CART_PATTERN, product))).click();
     }
 }

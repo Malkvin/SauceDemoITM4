@@ -1,5 +1,6 @@
 package tests;
 
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -38,3 +39,4 @@ public class ProductsTest extends BaseTest {
         assertEquals(productsPage.getFirstItemTitle(), "Sauce Labs Backpack");
     }
 }
+
